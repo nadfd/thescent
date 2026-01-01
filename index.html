@@ -122,6 +122,39 @@ body.dark header {
   opacity:1;
 }
 
+/* Overlay for readability */
+.hero-overlay {
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    rgba(0,0,0,0.45),
+    rgba(0,0,0,0.25)
+  );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:0 24px;
+}
+
+.hero-text {
+  max-width:700px;
+  color:white;
+}
+
+.hero-text h1 {
+  font-family:'Playfair Display',serif;
+  font-size:48px;
+  margin-bottom:16px;
+}
+
+.hero-text p {
+  font-size:16px;
+  line-height:1.7;
+  opacity:0.95;
+}
+
+/* ---------- SLIDESHOW CONTROLS ---------- */
 .slideshow-controls {
   position:absolute;
   inset:0;
@@ -168,7 +201,6 @@ body.dark header {
 
 .dot.active {
   background:var(--green);
-  opacity:1;
 }
 
 /* ---------- SECTIONS ---------- */
@@ -182,7 +214,8 @@ section {
 .rooms {
   background:var(--light);
   border-radius:16px;
-  margin-bottom:120px;
+  margin-top:120px;     /* space from hero */
+  margin-bottom:160px;  /* space from footer ribbon */
 }
 
 .room-grid {
@@ -235,6 +268,13 @@ footer {
   text-align:center;
   color:var(--muted);
 }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:768px) {
+  .hero-text h1 {
+    font-size:36px;
+  }
+}
 </style>
 </head>
 
@@ -257,13 +297,27 @@ footer {
   </div>
 </header>
 
-<div class="hero" id="hero"></div>
+<!-- HERO -->
+<div class="hero" id="hero">
+  <div class="hero-overlay">
+    <div class="hero-text">
+      <h1>Experience Nature in Its Purest Form</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur.
+      </p>
+    </div>
+  </div>
+</div>
 
+<!-- ROOM RATES -->
 <section id="rooms" class="rooms">
   <h2>Room Rates</h2>
 
   <div class="room-grid">
-
     <div class="room-card">
       <img src="roomimg/lavender.jpg" class="room-img">
       <h3 style="color:purple;"><strong>Lavender</strong></h3>
@@ -298,7 +352,6 @@ footer {
       <p>Max 2 Adults</p>
       <div class="price">Mar–Oct ฿500<br>Nov–Feb ฿700</div>
     </div>
-
   </div>
 
   <div class="book-center">
@@ -316,7 +369,8 @@ footer {
 const toggle = document.getElementById("modeToggle");
 toggle.onclick = () => {
   document.body.classList.toggle("dark");
-  toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+  toggle.textContent =
+    document.body.classList.contains("dark") ? "☀️" : "🌙";
 };
 
 /* ---------- SLIDESHOW ---------- */
@@ -344,7 +398,7 @@ function build() {
     const s = document.createElement("div");
     s.className = "slide" + (i === 0 ? " active" : "");
     s.style.backgroundImage = `url(${src})`;
-    hero.appendChild(s);
+    hero.prepend(s);
 
     const d = document.createElement("div");
     d.className = "dot" + (i === 0 ? " active" : "");
