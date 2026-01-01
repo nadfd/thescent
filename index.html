@@ -73,6 +73,7 @@ body.dark header {
 .logo {
   font-family:'Playfair Display',serif;
   cursor:pointer;
+  font-weight:600;
 }
 
 .nav-left a {
@@ -120,38 +121,6 @@ body.dark header {
 
 .slide.active {
   opacity:1;
-}
-
-/* Overlay for readability */
-.hero-overlay {
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    rgba(0,0,0,0.45),
-    rgba(0,0,0,0.25)
-  );
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:0 24px;
-}
-
-.hero-text {
-  max-width:700px;
-  color:white;
-}
-
-.hero-text h1 {
-  font-family:'Playfair Display',serif;
-  font-size:48px;
-  margin-bottom:16px;
-}
-
-.hero-text p {
-  font-size:16px;
-  line-height:1.7;
-  opacity:0.95;
 }
 
 /* ---------- SLIDESHOW CONTROLS ---------- */
@@ -203,26 +172,50 @@ body.dark header {
   background:var(--green);
 }
 
+/* ---------- HERO TEXT (UNDER SLIDESHOW) ---------- */
+.hero-text-section {
+  max-width:900px;
+  margin:80px auto 0;
+  padding:0 24px;
+  text-align:center;
+}
+
+.hero-text-section h1 {
+  font-family:'Playfair Display',serif;
+  font-size:46px;
+  margin-bottom:20px;
+}
+
+.hero-text-section p {
+  font-size:16px;
+  line-height:1.8;
+  color:var(--muted);
+}
+
 /* ---------- SECTIONS ---------- */
 section {
   max-width:1100px;
   margin:auto;
-  padding:120px 24px;
+  padding:80px 24px;
 }
 
 /* ---------- ROOM RATES ---------- */
 .rooms {
   background:var(--light);
   border-radius:16px;
-  margin-top:120px;     /* space from hero */
-  margin-bottom:160px;  /* space from footer ribbon */
+  margin-top:100px;
+  margin-bottom:160px;
+  padding-top:48px;   /* reduced top padding */
+}
+
+.rooms h2 {
+  margin-bottom:24px;
 }
 
 .room-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
   gap:24px;
-  margin-top:40px;
 }
 
 .room-card {
@@ -258,7 +251,7 @@ section {
 
 .book-center {
   text-align:center;
-  margin-top:40px;
+  margin-top:32px;
 }
 
 /* ---------- FOOTER ---------- */
@@ -271,8 +264,8 @@ footer {
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:768px) {
-  .hero-text h1 {
-    font-size:36px;
+  .hero-text-section h1 {
+    font-size:34px;
   }
 }
 </style>
@@ -283,7 +276,7 @@ footer {
 <header>
   <div class="nav">
     <div class="nav-left">
-      <div class="logo" onclick="scrollTo({top:0,behavior:'smooth'})">
+      <div class="logo" id="logoBtn">
         The Scent of Nature Khao Yai
       </div>
       <a href="#rooms">ROOM RATES</a>
@@ -297,20 +290,19 @@ footer {
   </div>
 </header>
 
-<!-- HERO -->
-<div class="hero" id="hero">
-  <div class="hero-overlay">
-    <div class="hero-text">
-      <h1>Experience Nature in Its Purest Form</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.
-      </p>
-    </div>
-  </div>
+<!-- HERO SLIDESHOW -->
+<div class="hero" id="hero"></div>
+
+<!-- HERO TEXT -->
+<div class="hero-text-section">
+  <h1>Experience Nature in Its Purest Form</h1>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+    fugiat nulla pariatur.
+  </p>
 </div>
 
 <!-- ROOM RATES -->
@@ -320,35 +312,35 @@ footer {
   <div class="room-grid">
     <div class="room-card">
       <img src="roomimg/lavender.jpg" class="room-img">
-      <h3 style="color:purple;"><strong>Lavender</strong></h3>
+      <h3 style="color:purple;">Lavender</h3>
       <p>Max 2 Adults</p>
       <div class="price">Mar–Oct ฿2,500<br>Nov–Feb ฿3,000</div>
     </div>
 
     <div class="room-card">
       <img src="roomimg/olive-ginger.jpg" class="room-img">
-      <h3 style="color:orange;"><strong>Olive Ginger</strong></h3>
+      <h3 style="color:orange;">Olive Ginger</h3>
       <p>Max 2 Adults</p>
       <div class="price">Mar–Oct ฿2,000<br>Nov–Feb ฿2,500</div>
     </div>
 
     <div class="room-card">
       <img src="roomimg/mint.jpg" class="room-img">
-      <h3 style="color:skyblue;"><strong>Mint</strong></h3>
+      <h3 style="color:skyblue;">Mint</h3>
       <p>Max 4 Adults</p>
       <div class="price">Mar–Oct ฿3,500<br>Nov–Feb ฿4,000</div>
     </div>
 
     <div class="room-card">
       <img src="roomimg/orange.jpg" class="room-img">
-      <h3 style="color:darkorange;"><strong>Orange</strong></h3>
+      <h3 style="color:darkorange;">Orange</h3>
       <p>Max 4 Adults</p>
       <div class="price">Mar–Oct ฿3,500<br>Nov–Feb ฿4,000</div>
     </div>
 
     <div class="room-card">
       <img src="roomimg/tent.jpg" class="room-img">
-      <h3 style="color:#1f3a8a;"><strong>Tent</strong></h3>
+      <h3 style="color:#1f3a8a;">Tent</h3>
       <p>Max 2 Adults</p>
       <div class="price">Mar–Oct ฿500<br>Nov–Feb ฿700</div>
     </div>
@@ -365,6 +357,11 @@ footer {
 </footer>
 
 <script>
+/* ---------- LOGO SCROLL FIX ---------- */
+document.getElementById("logoBtn").onclick = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
 /* ---------- DARK MODE ---------- */
 const toggle = document.getElementById("modeToggle");
 toggle.onclick = () => {
@@ -398,7 +395,7 @@ function build() {
     const s = document.createElement("div");
     s.className = "slide" + (i === 0 ? " active" : "");
     s.style.backgroundImage = `url(${src})`;
-    hero.prepend(s);
+    hero.appendChild(s);
 
     const d = document.createElement("div");
     d.className = "dot" + (i === 0 ? " active" : "");
