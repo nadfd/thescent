@@ -10,11 +10,11 @@
 <style>
 :root {
   --green:#2f7d4a;
-  --bg:#fff;
+  --bg:#ffffff;
   --text:#1f1f1f;
   --muted:#666;
   --light:#f3f3f3;
-  --card:#fff;
+  --card:#ffffff;
   --border:#e5e5e5;
   --header-height:72px;
 }
@@ -28,7 +28,7 @@ body.dark {
   --border:#333;
 }
 
-* { box-sizing:border-box; margin:0; padding:0; }
+* { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 
 body {
@@ -89,7 +89,7 @@ body.dark header {
 
 .btn-book {
   background:var(--green);
-  color:#fff;
+  color:white;
   padding:10px 20px;
   border-radius:6px;
   font-weight:700;
@@ -115,14 +115,13 @@ body.dark header {
   background-size:cover;
   background-position:center;
   opacity:0;
-  transition:opacity 1s ease;
+  transition:opacity 1.2s ease;
 }
 
 .slide.active {
   opacity:1;
 }
 
-/* controls */
 .slideshow-controls {
   position:absolute;
   inset:0;
@@ -155,7 +154,7 @@ body.dark header {
   display:flex;
   gap:10px;
   opacity:.25;
-  transition:.3s;
+  transition:opacity .6s ease;
 }
 
 .dot {
@@ -164,13 +163,15 @@ body.dark header {
   border-radius:50%;
   background:white;
   cursor:pointer;
+  transition:opacity .6s ease, background .6s ease;
 }
 
 .dot.active {
   background:var(--green);
+  opacity:1;
 }
 
-/* ---------- CONTENT SECTIONS ---------- */
+/* ---------- SECTIONS ---------- */
 section {
   max-width:1100px;
   margin:auto;
@@ -182,6 +183,49 @@ section {
   background:var(--light);
   border-radius:16px;
   margin-bottom:120px;
+}
+
+.room-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+  gap:24px;
+  margin-top:40px;
+}
+
+.room-card {
+  background:var(--card);
+  padding:20px;
+  border-radius:14px;
+  border:1px solid var(--border);
+}
+
+.room-img {
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+
+.room-card h3 {
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.room-card p {
+  font-size:14px;
+  color:var(--muted);
+}
+
+.price {
+  margin-top:8px;
+  font-weight:600;
+  font-size:14px;
+}
+
+.book-center {
+  text-align:center;
+  margin-top:40px;
 }
 
 /* ---------- FOOTER ---------- */
@@ -213,8 +257,54 @@ footer {
   </div>
 </header>
 
-<!-- HERO SLIDESHOW -->
 <div class="hero" id="hero"></div>
+
+<section id="rooms" class="rooms">
+  <h2>Room Rates</h2>
+
+  <div class="room-grid">
+
+    <div class="room-card">
+      <img src="roomimg/lavender.jpg" class="room-img">
+      <h3 style="color:purple;"><strong>Lavender</strong></h3>
+      <p>Max 2 Adults</p>
+      <div class="price">Mar–Oct ฿2,500<br>Nov–Feb ฿3,000</div>
+    </div>
+
+    <div class="room-card">
+      <img src="roomimg/olive-ginger.jpg" class="room-img">
+      <h3 style="color:orange;"><strong>Olive Ginger</strong></h3>
+      <p>Max 2 Adults</p>
+      <div class="price">Mar–Oct ฿2,000<br>Nov–Feb ฿2,500</div>
+    </div>
+
+    <div class="room-card">
+      <img src="roomimg/mint.jpg" class="room-img">
+      <h3 style="color:skyblue;"><strong>Mint</strong></h3>
+      <p>Max 4 Adults</p>
+      <div class="price">Mar–Oct ฿3,500<br>Nov–Feb ฿4,000</div>
+    </div>
+
+    <div class="room-card">
+      <img src="roomimg/orange.jpg" class="room-img">
+      <h3 style="color:darkorange;"><strong>Orange</strong></h3>
+      <p>Max 4 Adults</p>
+      <div class="price">Mar–Oct ฿3,500<br>Nov–Feb ฿4,000</div>
+    </div>
+
+    <div class="room-card">
+      <img src="roomimg/tent.jpg" class="room-img">
+      <h3 style="color:#1f3a8a;"><strong>Tent</strong></h3>
+      <p>Max 2 Adults</p>
+      <div class="price">Mar–Oct ฿500<br>Nov–Feb ฿700</div>
+    </div>
+
+  </div>
+
+  <div class="book-center">
+    <a href="/reservation" class="btn-book">BOOK NOW</a>
+  </div>
+</section>
 
 <footer id="contact">
   <p>Contact Us — info@thescentofnature.com | +66 12 345 6789</p>
@@ -229,13 +319,13 @@ toggle.onclick = () => {
   toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
 };
 
-/* ---------- SLIDESHOW AUTO-DETECT ---------- */
+/* ---------- SLIDESHOW ---------- */
 const hero = document.getElementById("hero");
 let slides = [];
 let dots = [];
 let index = 0;
+let timer;
 
-// auto-load images until one fails
 let i = 1;
 function tryLoad() {
   const img = new Image();
@@ -245,21 +335,21 @@ function tryLoad() {
     i++;
     tryLoad();
   };
-  img.onerror = buildSlideshow;
+  img.onerror = build;
 }
 tryLoad();
 
-function buildSlideshow() {
+function build() {
   slides.forEach((src, i) => {
-    const slide = document.createElement("div");
-    slide.className = "slide" + (i === 0 ? " active" : "");
-    slide.style.backgroundImage = `url(${src})`;
-    hero.appendChild(slide);
+    const s = document.createElement("div");
+    s.className = "slide" + (i === 0 ? " active" : "");
+    s.style.backgroundImage = `url(${src})`;
+    hero.appendChild(s);
 
-    const dot = document.createElement("div");
-    dot.className = "dot" + (i === 0 ? " active" : "");
-    dot.onclick = () => showSlide(i);
-    dots.push(dot);
+    const d = document.createElement("div");
+    d.className = "dot" + (i === 0 ? " active" : "");
+    d.onclick = () => go(i, true);
+    dots.push(d);
   });
 
   const dotsWrap = document.createElement("div");
@@ -274,22 +364,32 @@ function buildSlideshow() {
     <div class="arrow" onclick="next()">›</div>
   `;
   hero.appendChild(controls);
+
+  auto();
 }
 
-function showSlide(i) {
+function go(i, manual=false) {
   document.querySelectorAll(".slide").forEach((s, idx) => {
     s.classList.toggle("active", idx === i);
     dots[idx].classList.toggle("active", idx === i);
   });
   index = i;
+  if (manual) auto();
 }
 
 function next() {
-  showSlide((index + 1) % slides.length);
+  go((index + 1) % slides.length, true);
 }
 
 function prev() {
-  showSlide((index - 1 + slides.length) % slides.length);
+  go((index - 1 + slides.length) % slides.length, true);
+}
+
+function auto() {
+  clearInterval(timer);
+  timer = setInterval(() => {
+    go((index + 1) % slides.length);
+  }, 6000);
 }
 </script>
 
