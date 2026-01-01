@@ -172,7 +172,7 @@ body.dark header {
   background:var(--green);
 }
 
-/* ---------- HERO TEXT (UNDER SLIDESHOW) ---------- */
+/* ---------- HERO TEXT ---------- */
 .hero-text-section {
   max-width:900px;
   margin:80px auto 0;
@@ -199,13 +199,19 @@ section {
   padding:80px 24px;
 }
 
+/* 🔑 FIX: OFFSET FOR FIXED HEADER */
+#rooms,
+#contact {
+  scroll-margin-top: calc(var(--header-height) + 24px);
+}
+
 /* ---------- ROOM RATES ---------- */
 .rooms {
   background:var(--light);
   border-radius:16px;
   margin-top:100px;
   margin-bottom:160px;
-  padding-top:48px;   /* reduced top padding */
+  padding-top:48px;
 }
 
 .rooms h2 {
@@ -276,9 +282,7 @@ footer {
 <header>
   <div class="nav">
     <div class="nav-left">
-      <div class="logo" id="logoBtn">
-        The Scent of Nature Khao Yai
-      </div>
+      <div class="logo" id="logoBtn">The Scent of Nature Khao Yai</div>
       <a href="#rooms">ROOM RATES</a>
       <a href="#contact">CONTACT US</a>
     </div>
@@ -300,8 +304,6 @@ footer {
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
     nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-    fugiat nulla pariatur.
   </p>
 </div>
 
@@ -357,12 +359,12 @@ footer {
 </footer>
 
 <script>
-/* ---------- LOGO SCROLL FIX ---------- */
+/* LOGO SCROLL */
 document.getElementById("logoBtn").onclick = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-/* ---------- DARK MODE ---------- */
+/* DARK MODE */
 const toggle = document.getElementById("modeToggle");
 toggle.onclick = () => {
   document.body.classList.toggle("dark");
@@ -370,22 +372,15 @@ toggle.onclick = () => {
     document.body.classList.contains("dark") ? "☀️" : "🌙";
 };
 
-/* ---------- SLIDESHOW ---------- */
+/* SLIDESHOW */
 const hero = document.getElementById("hero");
-let slides = [];
-let dots = [];
-let index = 0;
-let timer;
-
+let slides = [], dots = [], index = 0, timer;
 let i = 1;
+
 function tryLoad() {
   const img = new Image();
   img.src = `slideshow/slide${i}.jpg`;
-  img.onload = () => {
-    slides.push(img.src);
-    i++;
-    tryLoad();
-  };
+  img.onload = () => { slides.push(img.src); i++; tryLoad(); };
   img.onerror = build;
 }
 tryLoad();
@@ -428,13 +423,8 @@ function go(i, manual=false) {
   if (manual) auto();
 }
 
-function next() {
-  go((index + 1) % slides.length, true);
-}
-
-function prev() {
-  go((index - 1 + slides.length) % slides.length, true);
-}
+function next() { go((index + 1) % slides.length, true); }
+function prev() { go((index - 1 + slides.length) % slides.length, true); }
 
 function auto() {
   clearInterval(timer);
