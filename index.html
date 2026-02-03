@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
+:root{
   --green:#2f7d4a;
   --bg:#ffffff;
   --text:#1f1f1f;
@@ -19,7 +19,7 @@
   --header-height:72px;
 }
 
-body.dark {
+body.dark{
   --bg:#121212;
   --text:#f1f1f1;
   --muted:#aaa;
@@ -28,18 +28,18 @@ body.dark {
   --border:#333;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 
-body {
+body{
   background:var(--bg);
   color:var(--text);
-  font-family:'Inter',sans-serif;
+  font-family:Inter,sans-serif;
   transition:.3s;
 }
 
-/* ---------- HEADER ---------- */
-header {
+/* HEADER */
+header{
   position:fixed;
   top:0;
   width:100%;
@@ -49,12 +49,9 @@ header {
   border-bottom:1px solid var(--border);
   z-index:1000;
 }
+body.dark header{background:rgba(18,18,18,.85)}
 
-body.dark header {
-  background:rgba(18,18,18,.85);
-}
-
-.nav {
+.nav{
   max-width:1200px;
   margin:auto;
   height:100%;
@@ -64,55 +61,62 @@ body.dark header {
   align-items:center;
 }
 
-.nav-left {
+.nav-left{
   display:flex;
   gap:24px;
   align-items:center;
 }
 
-.logo {
-  font-family:'Playfair Display',serif;
-  cursor:pointer;
+.logo{
+  font-family:Playfair Display,serif;
   font-weight:600;
+  cursor:pointer;
+  white-space:nowrap;
 }
 
-.nav-left a {
+.nav-left a{
+  width:120px;
+  text-align:center;
   text-decoration:none;
   color:var(--text);
   font-size:14px;
 }
 
-.nav-right {
+.nav-right{
   display:flex;
-  gap:14px;
+  gap:12px;
   align-items:center;
 }
 
-.btn-book {
-  background:var(--green);
-  color:white;
-  padding:10px 20px;
-  border-radius:6px;
-  font-weight:700;
-  text-decoration:none;
-}
-
-/* ---------- TOGGLES ---------- */
-.toggle {
+.toggle{
+  width:34px;
+  text-align:center;
   cursor:pointer;
   font-size:18px;
   user-select:none;
 }
 
-/* ---------- HERO SLIDESHOW ---------- */
-.hero {
+.btn-book{
+  min-width:130px;
+  text-align:center;
+  background:var(--green);
+  color:white;
+  padding:10px 18px;
+  border-radius:6px;
+  font-weight:700;
+  text-decoration:none;
+  display:inline-block;
+}
+
+/* HERO */
+.hero{
   margin-top:var(--header-height);
   height:calc(100vh - var(--header-height));
   position:relative;
   overflow:hidden;
 }
 
-.slide {
+.slide{
   position:absolute;
   inset:0;
   background-size:cover;
@@ -120,11 +124,9 @@ body.dark header {
   opacity:0;
   transition:opacity 1.2s ease;
 }
+.slide.active{opacity:1}
 
-.slide.active { opacity:1; }
-
-/* ---------- CONTROLS ---------- */
-.slideshow-controls {
+.slideshow-controls{
   position:absolute;
   inset:0;
   display:flex;
@@ -134,7 +136,7 @@ body.dark header {
   pointer-events:none;
 }
 
-.arrow {
+.arrow{
   pointer-events:auto;
   font-size:32px;
   color:white;
@@ -143,10 +145,7 @@ body.dark header {
   transition:.3s;
 }
 
-.hero:hover .arrow,
-.hero:hover .dots { opacity:.85; }
-
-.dots {
+.dots{
   position:absolute;
   bottom:24px;
   left:50%;
@@ -154,73 +153,74 @@ body.dark header {
   display:flex;
   gap:10px;
   opacity:.25;
-  transition:.6s;
+  transition:opacity .6s;
 }
 
-.dot {
+.dot{
   width:10px;
   height:10px;
   border-radius:50%;
   background:white;
   cursor:pointer;
 }
+.dot.active{background:var(--green)}
 
-.dot.active { background:var(--green); }
+.hero:hover .arrow,
+.hero:hover .dots{opacity:.85}
 
-/* ---------- HERO TEXT ---------- */
-.hero-text-section {
+/* HERO TEXT */
+.hero-text-section{
   max-width:900px;
   margin:80px auto 0;
   padding:0 24px;
   text-align:center;
+  min-height:260px;
 }
 
-.hero-text-section h1 {
-  font-family:'Playfair Display',serif;
+.hero-text-section h1{
+  font-family:Playfair Display,serif;
   font-size:46px;
   margin-bottom:20px;
 }
 
-.hero-text-section p {
+.hero-text-section p{
   font-size:16px;
   line-height:1.8;
   color:var(--muted);
 }
 
-/* ---------- SECTIONS ---------- */
-section {
+/* ROOMS */
+section{
   max-width:1100px;
   margin:auto;
   padding:80px 24px;
 }
 
-#rooms, #contact {
-  scroll-margin-top: calc(var(--header-height) + 24px);
-}
+#rooms{scroll-margin-top:96px}
 
-/* ---------- ROOMS ---------- */
-.rooms {
+.rooms{
   background:var(--light);
   border-radius:16px;
-  margin-top:100px;
+  margin-top:120px;
   margin-bottom:160px;
-  padding-top:48px;
+  padding-top:32px;
 }
 
-.room-grid {
+.room-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:24px;
 }
 
-.room-card {
+.room-card{
   background:var(--card);
   padding:20px;
   border-radius:14px;
   border:1px solid var(--border);
+  min-height:360px;
 }
 
-.room-img {
+.room-img{
   width:100%;
   height:160px;
   object-fit:cover;
@@ -228,19 +228,21 @@ section {
   margin-bottom:12px;
 }
 
-.price {
+.room-card h3{margin-bottom:6px}
+
+.price{
   margin-top:8px;
   font-weight:600;
   font-size:14px;
 }
 
-.book-center {
+.book-center{
   text-align:center;
   margin-top:32px;
 }
 
-/* ---------- FOOTER ---------- */
-footer {
+/* FOOTER */
+footer{
   background:var(--light);
   padding:48px 24px;
   text-align:center;
@@ -258,7 +260,6 @@ footer {
       <a href="#rooms" data-th="อัตราห้องพัก" data-en="ROOM RATES"></a>
       <a href="#contact" data-th="ติดต่อเรา" data-en="CONTACT US"></a>
     </div>
-
     <div class="nav-right">
       <div class="toggle" id="langToggle">🇹🇭</div>
       <div class="toggle" id="modeToggle">🌙</div>
@@ -267,113 +268,70 @@ footer {
   </div>
 </header>
 
-<!-- HERO -->
 <div class="hero" id="hero"></div>
 
 <div class="hero-text-section">
   <h1 data-th="สัมผัสธรรมชาติอย่างแท้จริง"
       data-en="Experience Nature in Its Purest Form"></h1>
-
   <p data-th="<b>The Scent of Nature Khao Yai</b> คือรีสอร์ทท่ามกลางธรรมชาติอันเงียบสงบ ตั้งอยู่ในพื้นที่อำเภอปากช่อง ใกล้เขตอุทยานแห่งชาติเขาใหญ่ เหมาะสำหรับผู้ที่ต้องการความสงบและเรียบง่าย รีสอร์ทมอบพื้นที่สีเขียวอันร่มรื่นที่ผสานความสะดวกสบายและความหรูหราอย่างลงตัว เป็นจุดหมายที่เหมาะสำหรับครอบครัว คู่รัก และผู้ที่ต้องการพักผ่อน เติมพลัง และเชื่อมโยงกับธรรมชาติและคนที่คุณรักอีกครั้ง"
-     data-en="<b>The Scent of Nature Khao Yai</b> is an exclusive nature resort tucked away in the midst of the natural environs of Pak Chong, on the boundary of the Khao Yai National Park. The resort is ideal for those seeking solitude and simplicity and provides a tranquil and green space where nature and the latest elements of comfort and luxury are in perfect harmony. It is an ideal destination for those seeking an escape into nature and for families and couples looking for an opportunity to press the pause button and relax and reconnect with nature and each other."></p>
+     data-en="<b>The Scent of Nature Khao Yai</b> is an exclusive nature resort tucked away in the midst of the natural environs of Pak Chong, on the boundary of the Khao Yai National Park. The resort is ideal for those seeking solitude and simplicity and provides a tranquil and green space where nature and the latest elements of comfort and luxury are in perfect harmony. It is an ideal destination for those seeking an escape into nature and for families and couples looking for an opportunity to relax and reconnect with nature and each other."></p>
 </div>
 
 <section id="rooms" class="rooms">
-  <h2 data-th="อัตราห้องพัก" data-en="Room Rates"></h2>
+<h2 data-th="อัตราห้องพัก" data-en="Room Rates"></h2>
 
-  <div class="room-grid">
-    <div class="room-card">
-      <img src="roomimg/lavender.jpg" class="room-img">
-      <h3 style="color:purple;">Lavender</h3>
-      <p data-th="ผู้เข้าพักสูงสุด 2 ท่าน" data-en="Max 2 Adults"></p>
-      <div class="price">Mar–Oct ฿2,500<br>Nov–Feb ฿3,000</div>
-    </div>
+<div class="room-grid">
+<div class="room-card"><img src="roomimg/lavender.jpg" class="room-img"><h3 style="color:purple">Lavender</h3><p data-th="ผู้เข้าพักสูงสุด 2 ท่าน" data-en="Max 2 Adults"></p><div class="price">Mar–Oct ฿2,500<br>Nov–Feb ฿3,000</div></div>
+<div class="room-card"><img src="roomimg/olive-ginger.jpg" class="room-img"><h3 style="color:orange">Olive Ginger</h3><p data-th="ผู้เข้าพักสูงสุด 2 ท่าน" data-en="Max 2 Adults"></p><div class="price">Mar–Oct ฿2,000<br>Nov–Feb ฿2,500</div></div>
+<div class="room-card"><img src="roomimg/mint.jpg" class="room-img"><h3 style="color:skyblue">Mint</h3><p data-th="ผู้เข้าพักสูงสุด 4 ท่าน" data-en="Max 4 Adults"></p><div class="price">Mar–Oct ฿3,500<br>Nov–Feb ฿4,000</div></div>
+<div class="room-card"><img src="roomimg/orange.jpg" class="room-img"><h3 style="color:darkorange">Orange</h3><p data-th="ผู้เข้าพักสูงสุด 4 ท่าน" data-en="Max 4 Adults"></p><div class="price">Mar–Oct ฿3,500<br>Nov–Feb ฿4,000</div></div>
+<div class="room-card"><img src="roomimg/tent.jpg" class="room-img"><h3 style="color:#1f3a8a">Tent</h3><p data-th="ผู้เข้าพักสูงสุด 2 ท่าน" data-en="Max 2 Adults"></p><div class="price">Mar–Oct ฿500<br>Nov–Feb ฿700</div></div>
+</div>
 
-    <div class="room-card">
-      <img src="roomimg/olive-ginger.jpg" class="room-img">
-      <h3 style="color:orange;">Olive Ginger</h3>
-      <p data-th="ผู้เข้าพักสูงสุด 2 ท่าน" data-en="Max 2 Adults"></p>
-      <div class="price">Mar–Oct ฿2,000<br>Nov–Feb ฿2,500</div>
-    </div>
-
-    <div class="room-card">
-      <img src="roomimg/mint.jpg" class="room-img">
-      <h3 style="color:skyblue;">Mint</h3>
-      <p data-th="ผู้เข้าพักสูงสุด 4 ท่าน" data-en="Max 4 Adults"></p>
-      <div class="price">Mar–Oct ฿3,500<br>Nov–Feb ฿4,000</div>
-    </div>
-
-    <div class="room-card">
-      <img src="roomimg/orange.jpg" class="room-img">
-      <h3 style="color:darkorange;">Orange</h3>
-      <p data-th="ผู้เข้าพักสูงสุด 4 ท่าน" data-en="Max 4 Adults"></p>
-      <div class="price">Mar–Oct ฿3,500<br>Nov–Feb ฿4,000</div>
-    </div>
-
-    <div class="room-card">
-      <img src="roomimg/tent.jpg" class="room-img">
-      <h3 style="color:#1f3a8a;">Tent</h3>
-      <p data-th="ผู้เข้าพักสูงสุด 2 ท่าน" data-en="Max 2 Adults"></p>
-      <div class="price">Mar–Oct ฿500<br>Nov–Feb ฿700</div>
-    </div>
-  </div>
-
-  <div class="book-center">
-    <a href="/thescent/reservation" class="btn-book" data-th="จองตอนนี้" data-en="BOOK NOW"></a>
-  </div>
+<div class="book-center">
+<a href="/thescent/reservation" class="btn-book" data-th="จองตอนนี้" data-en="BOOK NOW"></a>
+</div>
 </section>
 
 <footer id="contact">
-  <p data-th="ติดต่อเรา: info@thescentofnature.com | +66 12 345 6789"
-     data-en="Contact Us: info@thescentofnature.com | +66 12 345 6789"></p>
-  <div>© 2026 The Scent of Nature Khao Yai</div>
+<p data-th="ติดต่อเรา — info@thescentofnature.com | +66 12 345 6789"
+   data-en="Contact Us — info@thescentofnature.com | +66 12 345 6789"></p>
+<div>© 2026 The Scent of Nature Khao Yai</div>
 </footer>
 
 <script>
-/* LOGO */
-document.getElementById("logoBtn").onclick = () =>
-  window.scrollTo({top:0,behavior:"smooth"});
+document.getElementById("logoBtn").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
 
-/* DARK MODE */
-const modeToggle = document.getElementById("modeToggle");
-modeToggle.onclick = () => {
+const modeToggle=document.getElementById("modeToggle");
+modeToggle.onclick=()=>{
   document.body.classList.toggle("dark");
-  modeToggle.textContent =
-    document.body.classList.contains("dark") ? "☀️" : "🌙";
+  modeToggle.textContent=document.body.classList.contains("dark")?"☀️":"🌙";
 };
 
-/* LANGUAGE SWITCH */
-let lang = "th";
-const langToggle = document.getElementById("langToggle");
-
-function applyLang() {
-  document.documentElement.lang = lang;
-  document.querySelectorAll("[data-th]").forEach(el => {
-    el.innerHTML = el.dataset[lang];
+let lang="th";
+const langToggle=document.getElementById("langToggle");
+function applyLang(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-th]").forEach(el=>{
+    el.innerHTML=el.dataset[lang];
   });
-  langToggle.textContent = lang === "th" ? "🇹🇭" : "🇬🇧";
+  langToggle.textContent=lang==="th"?"🇹🇭":"🇬🇧";
 }
-
-langToggle.onclick = () => {
-  lang = lang === "th" ? "en" : "th";
-  applyLang();
-};
-
+langToggle.onclick=()=>{lang=lang==="th"?"en":"th";applyLang()};
 applyLang();
 
 /* SLIDESHOW */
-const hero = document.getElementById("hero");
-let slides=[], dots=[], index=0, timer, i=1;
-
-function load() {
+const hero=document.getElementById("hero");
+let slides=[],dots=[],index=0,timer,i=1;
+function load(){
   const img=new Image();
   img.src=`slideshow/slide${i}.jpg`;
-  img.onload=()=>{slides.push(img.src);i++;load();}
+  img.onload=()=>{slides.push(img.src);i++;load()};
   img.onerror=build;
 }
 load();
 
-function build() {
+function build(){
   slides.forEach((src,i)=>{
     const s=document.createElement("div");
     s.className="slide"+(i===0?" active":"");
@@ -393,7 +351,7 @@ function build() {
 
   const c=document.createElement("div");
   c.className="slideshow-controls";
-  c.innerHTML=`<div class="arrow" onclick="prev()">‹</div><div class="arrow" onclick="next()">›</div>`;
+  c.innerHTML='<div class="arrow" onclick="prev()">‹</div><div class="arrow" onclick="next()">›</div>';
   hero.appendChild(c);
 
   auto();
@@ -405,12 +363,11 @@ function go(i,m=false){
     dots[idx].classList.toggle("active",idx===i);
   });
   index=i;
-  if(m) auto();
+  if(m)auto();
 }
-
-function next(){go((index+1)%slides.length,true);}
-function prev(){go((index-1+slides.length)%slides.length,true);}
-function auto(){clearInterval(timer);timer=setInterval(()=>go((index+1)%slides.length),6000);}
+function next(){go((index+1)%slides.length,true)}
+function prev(){go((index-1+slides.length)%slides.length,true)}
+function auto(){clearInterval(timer);timer=setInterval(()=>go((index+1)%slides.length),6000)}
 </script>
 
 </body>
